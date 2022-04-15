@@ -1,16 +1,14 @@
-package simulacao;
+
 import java.awt.*;
-import java.util.Iterator;
 import javax.swing.*;
 
 /**
  * Fornece a visualizacao da simulacao
- * @author David J. Barnes and Michael Kolling and Luiz Merschmann and Grupo
+ * @author David J. Barnes and Michael Kolling and Luiz Merschmann
  */
 public class JanelaSimulacao extends JFrame{
     private Mapa mapa;
     private VisaoMapa visaoMapa;
-    private Image doubleBuffer;
     
     public JanelaSimulacao(Mapa mapa){
         this.mapa = mapa;
@@ -27,18 +25,18 @@ public class JanelaSimulacao extends JFrame{
      */
     public void executarAcao(){
         visaoMapa.preparePaint();
-        Iterator<Item> items = mapa.getItem();
-        while(items.hasNext()) {//Se existir algum objeto na posicao (i,j)
-            Item item = items.next();
-            if(item instanceof Desenhavel){
-                Desenhavel desenhavel = (Desenhavel) item;
-                Localizacao localizacao = desenhavel.getLocalizacaoAtual();
-                visaoMapa.desenharImagem(localizacao.getX(), localizacao.getY(), desenhavel.getImagem());
+        for(int i = 0; i < mapa.getAltura(); i++){
+            for(int j = 0; j < mapa.getLargura(); j++){
+                if(mapa.getItem(i, j) != null){//Se existir algum objeto na posicao (i,j)
+                    Veiculo veiculo = mapa.getItem(i, j);
+                    Localizacao localizacao = veiculo.getLocalizacaoAtual();
+                    visaoMapa.desenharImagem(localizacao.getX(), localizacao.getY(), veiculo.getImagem());
+                }
             }
         }
         visaoMapa.repaint();
     }
-    
+
     /**
      * Fornece uma visualizacao grafica do mapa. Esta eh 
      * uma classe interna que define os componentes da GUI.
@@ -48,6 +46,7 @@ public class JanelaSimulacao extends JFrame{
     private class VisaoMapa extends JPanel{
 
         private final int VIEW_SCALING_FACTOR = 6;
+
 
         private int larguraMapa, alturaMapa;
         private int xScale, yScale;
@@ -83,9 +82,6 @@ public class JanelaSimulacao extends JFrame{
         {
             if(!tamanho.equals(getSize())) {  // se o tamanho mudou...
                 tamanho = getSize();
-                //teste
-                
-                
                 imagemMapa = visaoMapa.createImage(tamanho.width, tamanho.height);
                 g = imagemMapa.getGraphics();
 
@@ -107,8 +103,6 @@ public class JanelaSimulacao extends JFrame{
             for(int i = 0, y = 0; y < tamanho.height; i++, y = i * yScale) {
                 g.drawLine(0, y, tamanho.width - 1, y);
             }
-            //Desenha a cidade
-            visaoMapa.desenharCidade();
         }
         
         /**
@@ -116,11 +110,10 @@ public class JanelaSimulacao extends JFrame{
          */
         public void desenharImagem(int x, int y, Image image)
         {
-            
             g.drawImage(image, x * xScale + 1, y * yScale + 1,
                         xScale - 1, yScale - 1, this);
         }
-        
+
         /**
          * O componente VisaoMapa precisa ser reexibido. Copia a
          * imagem interna para a tela.
@@ -131,39 +124,6 @@ public class JanelaSimulacao extends JFrame{
                 g.drawImage(imagemMapa, 0, 0, null);
             }
         }
-        
-        /**
-         * GRUPO:
-         * O componente visaoMapa precisa desenhar as ruas. Desenha
-         * de acordo com o que foi estabelecido ser cada parte da cidade.
-         * Desenha porém não tem uma "conecção" com a classe que determina as ruas.
-         */
-        public void desenharCidade(){
-            if(!tamanho.equals(getSize())) {  // se o tamanho mudou...
-                tamanho = getSize();
-                imagemMapa = visaoMapa.createImage(tamanho.width, tamanho.height);
-                g = imagemMapa.getGraphics();
-
-                xScale = tamanho.width / larguraMapa;
-                if(xScale < 1) {
-                    xScale = VIEW_SCALING_FACTOR;
-                }
-                yScale = tamanho.height / alturaMapa;
-                if(yScale < 1) {
-                    yScale = VIEW_SCALING_FACTOR;
-                }
-            }
-            //"RUAS"
-            g.setColor(Color.green);
-            g.fillRect(3*xScale, 3*yScale, 46*xScale, yScale);
-            g.fillRect(3*xScale, 4*yScale, xScale, 46*yScale);
-            g.fillRect(3*xScale, 49*yScale, 46*xScale, yScale);
-            g.fillRect(49*xScale, 3*yScale, xScale, 47*yScale);
-            //"PONTO DE VAN"
-            g.setColor(Color.blue);
-            g.fillRect(45*xScale, 2*yScale, xScale, yScale);
-            g.fillRect(2*xScale, 45*yScale, xScale, yScale);
-            g.fillRect(48*xScale, 33*yScale, xScale, yScale);
-        }
     }
+    
 }

@@ -1,21 +1,16 @@
-package simulacao;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Representa um mapa com todos os itens que participam da simulacao
- * @author David J. Barnes and Michael Kolling and Luiz Merschmann and Grupo
+ * @author David J. Barnes and Michael Kolling and Luiz Merschmann
  */
 public class Mapa {
-    //modificado para lista ao inves de matriz
-    private List<Item> itens;
+    private Veiculo[][] itens;
     private int largura;
     private int altura;
     
-    private static final int LARGURA_PADRAO = 50;
-    private static final int ALTURA_PADRAO = 50;
+    private static final int LARGURA_PADRAO = 35;
+    private static final int ALTURA_PADRAO = 35;
     
     /**
      * Cria mapa para alocar itens da simulacao.
@@ -25,8 +20,7 @@ public class Mapa {
     public Mapa(int largura, int altura) {
         this.largura = largura;
         this.altura = altura;
-        //itens = new Item[altura][largura];
-        itens = new LinkedList<>();
+        itens = new Veiculo[altura][largura];
     }
     /**
      * Cria mapa com tamanho padrao.
@@ -35,29 +29,23 @@ public class Mapa {
         this(LARGURA_PADRAO,ALTURA_PADRAO);
     }
     
-    public Iterator<Item> getItem()
-    {
-        return itens.iterator();
+    public void adicionarItem(Veiculo v){
+        itens[v.getLocalizacaoAtual().getX()][v.getLocalizacaoAtual().getY()] = v;
     }
     
-    public void adicionarItem(Item item)
-    {
-        if(itens.contains(item)) {
-            throw new IllegalArgumentException(
-                item + " ja existe no mapa.");
-        }
-        itens.add(item);
+    public void removerItem(Veiculo v){
+        itens[v.getLocalizacaoAtual().getX()][v.getLocalizacaoAtual().getY()] = null;
     }
-
-    public void removerItem(Item item)
-    {
-        itens.remove(item);
-    }
-    public void atualizarMapa(Item v){
+    
+    public void atualizarMapa(Veiculo v){
         removerItem(v);
         adicionarItem(v);
     }
     
+    public Veiculo getItem(int x, int y){
+        return itens[x][y];
+    }
+
     public int getLargura() {
         return largura;
     }
@@ -65,5 +53,5 @@ public class Mapa {
     public int getAltura() {
         return altura;
     }
-
+    
 }
