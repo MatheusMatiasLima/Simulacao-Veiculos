@@ -16,10 +16,12 @@ public class Simulacao {
         
         veiculo = new Veiculo(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)));//Cria um veiculo em uma posicao aleatoria
 
+        Hospital hospital = new Hospital(new Localizacao(5, 5));
 
         veiculo.setLocalizacaoDestino(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)));//Define a posicao destino aleatoriamente
 
         mapa.adicionarItem(veiculo); //Inicializando o mapa com o veículo
+        mapa.adicionarItem(hospital);
         
         janelaSimulacao = new JanelaSimulacao(mapa);
     }
