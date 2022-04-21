@@ -7,7 +7,7 @@
 public class Van extends Veiculo {
 
     public Van(Localizacao localizacao) {
-        super(localizacao,"Imagens/ambulancia.png");
+        super(localizacao,"Imagens/van.png");
         //TODO Auto-generated constructor stub
     }
     

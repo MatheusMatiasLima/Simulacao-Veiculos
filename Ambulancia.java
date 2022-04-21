@@ -6,13 +6,20 @@ public class Ambulancia extends Veiculo {
     public Ambulancia(Localizacao localizacao) {
 
         super(localizacao,"Imagens/ambulancia.png");
+        pessoas = new Stack<>();
     }
 
     public void adicionarPessoa (Pessoa p) {
-        System.out.println("Adicionando " + p + " a ambulancia");
+
         pessoas.add(p);
         
     }
     
+    public void verPessoasNaAmbulancia () {
+        System.out.println("***Pessoas na ambulancia***");
+        for (Pessoa p : pessoas) {
+            System.out.println("Nome: " + p.getNome());
+        }
+    }
 
 }

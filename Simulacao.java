@@ -20,19 +20,24 @@ public class Simulacao {
         int largura = mapa.getLargura();
         int altura = mapa.getAltura();
         
-        veiculo = new Veiculo(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)), "Imagens/veiculo.jpg");//Cria um veiculo em uma posicao aleatoria
+        //veiculo = new Veiculo(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)), "Imagens/veiculo.jpg");//Cria um veiculo em uma posicao aleatoria
 
         hospital = new Hospital(new Localizacao(5, 5));
+
+        veiculo = new Veiculo(hospital.getEstacionamento(), "Imagens/veiculo.jpg");//Cria um veiculo em uma posicao aleatoria
 
         parque = new Parque(new Localizacao(27, 10));
 
         ambulancia = new Ambulancia(hospital.getEstacionamento());
 
-        //adicionando pessoa matheus doente ao parque
+       
         parque.adicionarPessoaAoAmbiente(new Pessoa("Matheus"));
+        parque.adicionarPessoaAoAmbiente(new Pessoa("Jao"));
+        parque.adicionarPessoaAoAmbiente(new Pessoa("Edu"));
+        parque.adicionarPessoaAoAmbiente(new Pessoa("Dudu"));
         
         veiculo.setLocalizacaoDestino(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)));//Define a posicao destino aleatoriamente
-        ambulancia.setLocalizacaoDestino(parque.getEstacionamento());
+        ambulancia.setLocalizacaoDestino(hospital.getEstacionamento());
 
 
         mapa.adicionarItem(veiculo); 
@@ -51,9 +56,9 @@ public class Simulacao {
 
     public void executarSimulacao(int numPassos){
         janelaSimulacao.executarAcao();
-        for (int i = 0; i < numPassos; i++) {
+        while (true) {
             executarUmPasso();
-            esperar(100);
+            esperar(200);
         }        
     }
 
@@ -61,15 +66,47 @@ public class Simulacao {
         mapa.removerItem(veiculo);
         veiculo.executarAcao();
         mapa.adicionarItem(veiculo);
+
+        mapa.removerItem(ambulancia);
         ambulancia.executarAcao();
+        mapa.adicionarItem(ambulancia);
 
-        if (ambulancia.getLocalizacaoAtual().equals(ambulancia.getLocalizacaoDestino())) {
-            ambulancia.setLocalizacaoDestino(hospital.getEstacionamento());
-        }
-
-
+        realizarPassoDoParque();
 
         janelaSimulacao.executarAcao();
+    }
+
+    private void realizarPassoDoParque () {
+
+        if (parque.precisaDeSocorro()) {
+
+            if (parque.socorroACaminho()) {
+    
+
+                if (ambulancia.getLocalizacaoDestino().equals(ambulancia.getLocalizacaoAtual())) {
+                    System.out.println("Ambulancia chegou no parque, transferindo pessoas...");
+
+                    Stack<Pessoa> pessoasSaindoDoParque = new Stack<>();
+                    pessoasSaindoDoParque = parque.removerPessoaDoAmbiente();
+                    while (!pessoasSaindoDoParque.empty()) {
+
+                        ambulancia.adicionarPessoa(pessoasSaindoDoParque.pop());
+                    }
+                    ambulancia.verPessoasNaAmbulancia();
+                    ambulancia.setLocalizacaoDestino(hospital.getEstacionamento());
+                    parque.setFalseSocorroACaminho();
+                }
+            }
+            
+            else {
+                System.out.println("Chamando ambulancia");
+                ambulancia.setLocalizacaoDestino(parque.getEstacionamento());
+                parque.setTrueSocorroACaminho();
+            }
+        }
+
+        parque.passarTempo();
+
     }
     
     private void esperar(int milisegundos){
