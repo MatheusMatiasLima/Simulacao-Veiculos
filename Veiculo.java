@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Random;
 /**
@@ -54,14 +55,15 @@ public abstract class Veiculo extends Item {
         this.localizacaoDestino = localizacaoDestino;
     }
     
+
     public void executarAcao() {
         if (!noSemafaro && estaEmMovimento()) {
             Random rand = new Random();
             int sorte = rand.nextInt(100);
 
-            if (sorte >78) {
+            if (sorte > 98) {
                 noSemafaro = true;
-                System.out.println("semafaro");
+                //System.out.println("semafaro");
             }
             else {
                 Localizacao destino = getLocalizacaoDestino();
@@ -73,13 +75,12 @@ public abstract class Veiculo extends Item {
         }
         
         else if (noSemafaro){
-            System.out.println("espera" + espera);
+            //System.out.println("espera" + espera);
             espera -= 1;
             if(espera == 0){
                 espera = 15;
                 noSemafaro = false;
             }
-
         }
     }
 

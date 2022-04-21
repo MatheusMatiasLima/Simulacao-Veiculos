@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -32,7 +33,7 @@ public class Localizacao {
      * @param localizacaoDestino: localizacao que se deseja alcancar.
      * @return Localizacao para onde se deve ir
      */
-    public Localizacao proximaLocalizacao(Localizacao localizacaoDestino){
+    public Localizacao proximaLocalizacao(Localizacao localizacaoDestino, ArrayList<Item> obstaculos){
         if(localizacaoDestino.equals(this)){//Verifica se já alcancou o destino
             return localizacaoDestino;
         }else{
@@ -40,6 +41,16 @@ public class Localizacao {
             int destY = localizacaoDestino.getY();
             int deslocX = x < destX ? 1 : x > destX ? -1 : 0;//Deslocamento de 1 ou 0 ou -1 posição em x
             int deslocY = y < destY ? 1 : y > destY ? -1 : 0;//Deslocamento de 1 ou 0 ou -1 posição em y
+            for (int i = 0; i < obstaculos.size(); i++) {
+                if(obstaculos.get(i).getLocalizacaoAtual().equals(new Localizacao(deslocX + x,y))){//Verifica se existe algum obstaculo na localizacao atual em x
+                    deslocX = 0;//Deslocamento de 1 ou 0 ou -1 posição em y
+                    deslocY=1;//Deslocamento de 1 ou 0 ou -1 posição em x
+                }else if(obstaculos.get(i).getLocalizacaoAtual().equals(new Localizacao(x, deslocY+ y))){//Verifica se existe algum obstaculo na localizacao atual em y
+                    deslocX = 1;//Deslocamento de 1 ou 0 ou -1 posição em x
+                    deslocY = 0;//Deslocamento de 1 ou 0 ou -1 posição em y
+                }
+            }
+            
             Localizacao novaLocalizacao;
             if(deslocX != 0 && deslocY != 0){//Se nenhuma coordenada coincide com a localizacao destino
                 if(rand.nextInt(2) == 0){//Atualizar x
