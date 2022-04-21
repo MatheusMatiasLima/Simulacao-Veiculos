@@ -3,11 +3,16 @@ import java.util.Random;
 public class Pessoa{
     private String nome;
     private boolean doente = false;
-    private boolean idoso = false;
+    private int idade;
+    private String cpf;
+    private int peso; //Em Kg
 
 
-    public Pessoa(String nome) {
+    public Pessoa(String nome, int idade, String cpf, int peso) {
         this.nome = nome;
+        this.idade = idade;
+        this.cpf = cpf;
+        this.peso = peso;
     }
 
     public void viver () {
@@ -29,8 +34,17 @@ public class Pessoa{
         return doente;
     }
 
+    public int getIdade(){return idade;}
+
+    public int getPeso(){return peso;}
+    
+    public String getCpf(){return cpf;}
+
     public boolean isIdoso() {
-        return idoso;
+        if(getIdade()>=65){
+            return true;
+        }
+        return false;
     }
 
     public void ficarDoente () {
