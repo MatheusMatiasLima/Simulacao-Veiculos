@@ -31,5 +31,14 @@ public class Veiculo extends Item {
             Localizacao proximaLocalizacao = getLocalizacaoAtual().proximaLocalizacao(localizacaoDestino);
             setLocalizacaoAtual(proximaLocalizacao);
         }
-    } 
+    }
+
+    public boolean estaEmMovimento () {
+        if (getLocalizacaoAtual() != getLocalizacaoDestino()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
