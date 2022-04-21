@@ -1,5 +1,5 @@
+import java.util.ArrayList;
 import java.util.Random;
-import java.util.Stack;
 /**
  * Responsavel pela simulacao.
  * @author David J. Barnes and Michael Kolling and Luiz Merschmann
@@ -12,6 +12,8 @@ public class Simulacao {
     private Hospital hospital;
     private Parque parque;
     private Ambulancia ambulancia;
+    private Buraco buraco;
+    private ArrayList<Item> obstaculos;
     private Van vanDoHospital;
     
     public Simulacao() {
@@ -19,6 +21,7 @@ public class Simulacao {
         mapa = new Mapa();
         int largura = mapa.getLargura();
         int altura = mapa.getAltura();
+        obstaculos = new ArrayList();
         
         //veiculo = new Veiculo(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)), "Imagens/veiculo.jpg");//Cria um veiculo em uma posicao aleatoria
 
@@ -31,7 +34,16 @@ public class Simulacao {
         ambulancia = new Ambulancia(hospital.getEstacionamento());
         vanDoHospital = new Van(hospital.getEstacionamento());
 
-       
+        //adiciona buracos no mapa
+        for(int i = 0; i < 4; i++){
+            buraco = new Buraco(new Localizacao(13, 10+i));
+            obstaculos.add(buraco);
+            mapa.adicionarItem(buraco);
+            buraco = new Buraco(new Localizacao(14, 10+i));
+            obstaculos.add(buraco);
+            mapa.adicionarItem(buraco);
+        }
+ 
         parque.adicionarPessoaAoAmbiente(new Pessoa("Matheus"));
         parque.adicionarPessoaAoAmbiente(new Pessoa("Jao"));
         parque.adicionarPessoaAoAmbiente(new Pessoa("Edu"));
@@ -67,11 +79,11 @@ public class Simulacao {
     private void executarUmPasso() {
 
         mapa.removerItem(ambulancia);
-        ambulancia.executarAcao();
+        ambulancia.executarAcao(obstaculos);
         mapa.adicionarItem(ambulancia);
 
         mapa.removerItem(vanDoHospital);
-        vanDoHospital.executarAcao();
+        vanDoHospital.executarAcao(obstaculos);
         mapa.adicionarItem(vanDoHospital);
 
         realizarPassoDoParque();

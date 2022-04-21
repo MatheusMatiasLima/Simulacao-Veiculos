@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -52,10 +53,10 @@ public abstract class Veiculo extends Item {
         this.localizacaoDestino = localizacaoDestino;
     }
     
-    public void executarAcao(){
+    public void executarAcao(ArrayList<Item> obstaculos){
         Localizacao destino = getLocalizacaoDestino();
         if(destino != null){
-            Localizacao proximaLocalizacao = getLocalizacaoAtual().proximaLocalizacao(localizacaoDestino);
+            Localizacao proximaLocalizacao = getLocalizacaoAtual().proximaLocalizacao(localizacaoDestino,obstaculos);
             setLocalizacaoAtual(proximaLocalizacao);
         }
     }
