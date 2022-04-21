@@ -7,27 +7,16 @@ import java.util.Stack;
 */
 
 public class Van extends Veiculo {
-    private Stack<Pessoa> pessoas;
 
 
     public Van(Localizacao localizacao) {
         super(localizacao,"Imagens/van.png");
-        pessoas = new Stack<>();
         //TODO Auto-generated constructor stub
     }
 
-    public void adicionarPessoa (Pessoa p) {
-        pessoas.add(p);
-    }
-    public Pessoa tirarPessoa () {
-        return pessoas.pop();
-    }
-
-    public boolean temPessoasNoVeiculo () {
-        if (pessoas.isEmpty()) {
-            return false;
-        }
-        return true;
+    @Override
+    protected String retornarNomeDaSubclasse () {
+        return this.getClass().getName();
     }
     
 

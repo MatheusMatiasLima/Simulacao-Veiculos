@@ -10,7 +10,6 @@ public class Simulacao {
     private Mapa mapa;
 
     private Hospital hospital;
-    private Veiculo veiculo;
     private Parque parque;
     private Ambulancia ambulancia;
     private Van vanDoHospital;
@@ -25,7 +24,7 @@ public class Simulacao {
 
         hospital = new Hospital(new Localizacao(5, 5));
 
-        veiculo = new Veiculo(hospital.getEstacionamento(), "Imagens/veiculo.jpg");//Cria um veiculo em uma posicao aleatoria
+        //veiculo = new Veiculo(hospital.getEstacionamento(), "Imagens/veiculo.jpg");//Cria um veiculo em uma posicao aleatoria
 
         parque = new Parque(new Localizacao(27, 10));
 
@@ -38,11 +37,11 @@ public class Simulacao {
         parque.adicionarPessoaAoAmbiente(new Pessoa("Edu"));
         parque.adicionarPessoaAoAmbiente(new Pessoa("Dudu"));
         
-        veiculo.setLocalizacaoDestino(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)));//Define a posicao destino aleatoriamente
+        //veiculo.setLocalizacaoDestino(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)));//Define a posicao destino aleatoriamente
         ambulancia.setLocalizacaoDestino(hospital.getEstacionamento());
         vanDoHospital.setLocalizacaoDestino(hospital.getEstacionamento());
 
-        mapa.adicionarItem(veiculo); 
+        //mapa.adicionarItem(veiculo); 
         mapa.adicionarItem(hospital);
         mapa.adicionarItem(ambulancia);
         mapa.adicionarItem(vanDoHospital);
@@ -66,9 +65,6 @@ public class Simulacao {
     }
 
     private void executarUmPasso() {
-        mapa.removerItem(veiculo);
-        veiculo.executarAcao();
-        mapa.adicionarItem(veiculo);
 
         mapa.removerItem(ambulancia);
         ambulancia.executarAcao();
@@ -88,7 +84,7 @@ public class Simulacao {
 
         if (ambulancia.getLocalizacaoAtual().equals(hospital.getEstacionamento())) {
             //System.out.println("Ambulancia chegou no hospital");
-            while (ambulancia.temPessoasNaAmbulancia()) { //esvaziar a ambulancia
+            while (ambulancia.temPessoasNoVeiculo()) { //esvaziar a ambulancia
                 hospital.adicionarPessoaAoAmbiente(ambulancia.tirarPessoa());
             }
 

@@ -1,10 +1,13 @@
+import java.util.Stack;
 
 /**
  * Representa os veiculos da simulacao.
  * @author David J. Barnes and Michael Kolling and Luiz Merschmann
  */
-public class Veiculo extends Item {
+public abstract class Veiculo extends Item {
     private Localizacao localizacaoDestino;
+    private Stack<Pessoa> pessoas;
+
 
     //esse construtor vai ser descontinuado, está aqui apenas para tampar buraco
     //public Veiculo (Localizacao localizacao) {
@@ -14,7 +17,31 @@ public class Veiculo extends Item {
 
     public Veiculo(Localizacao localizacao, String connectionStringImagem) {
         super(localizacao, connectionStringImagem);
+        pessoas = new Stack<>();
         localizacaoDestino = null;
+    }
+
+    protected abstract String retornarNomeDaSubclasse ();
+
+    public void adicionarPessoa (Pessoa p) {
+        pessoas.add(p);
+    }
+    public Pessoa tirarPessoa () {
+        return pessoas.pop();
+    }
+
+    public boolean temPessoasNoVeiculo () {
+        if (pessoas.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public void verPessoasNoVeiculo () {
+        System.out.println("***Pessoas na " + retornarNomeDaSubclasse() + "***" );
+        for (Pessoa p : pessoas) {
+            System.out.println("Nome: " + p.getNome());
+        }
     }
 
     public Localizacao getLocalizacaoDestino() {
