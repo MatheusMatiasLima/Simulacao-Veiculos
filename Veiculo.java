@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * Representa os veiculos da simulacao.
@@ -25,10 +26,10 @@ public class Veiculo extends Item {
         this.localizacaoDestino = localizacaoDestino;
     }
     
-    public void executarAcao(){
+    public void executarAcao(ArrayList<Item> obstaculos){
         Localizacao destino = getLocalizacaoDestino();
         if(destino != null){
-            Localizacao proximaLocalizacao = getLocalizacaoAtual().proximaLocalizacao(localizacaoDestino);
+            Localizacao proximaLocalizacao = getLocalizacaoAtual().proximaLocalizacao(localizacaoDestino,obstaculos);
             setLocalizacaoAtual(proximaLocalizacao);
         }
     } 

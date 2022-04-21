@@ -1,5 +1,5 @@
+import java.util.ArrayList;
 import java.util.Random;
-import java.util.Stack;
 /**
  * Responsavel pela simulacao.
  * @author David J. Barnes and Michael Kolling and Luiz Merschmann
@@ -13,12 +13,16 @@ public class Simulacao {
     private Veiculo veiculo;
     private Parque parque;
     private Ambulancia ambulancia;
+    private Buraco buraco;
+    private ArrayList<Item> obstaculos;
+    
     
     public Simulacao() {
         Random rand = new Random(12345);
         mapa = new Mapa();
         int largura = mapa.getLargura();
         int altura = mapa.getAltura();
+        obstaculos = new ArrayList();
         
         veiculo = new Veiculo(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)), "Imagens/veiculo.jpg");//Cria um veiculo em uma posicao aleatoria
 
@@ -28,6 +32,15 @@ public class Simulacao {
 
         ambulancia = new Ambulancia(hospital.getEstacionamento());
 
+        //adiciona buracos no mapa
+        for(int i = 0; i < 4; i++){
+            buraco = new Buraco(new Localizacao(13, 10+i));
+            obstaculos.add(buraco);
+            mapa.adicionarItem(buraco);
+            buraco = new Buraco(new Localizacao(14, 10+i));
+            obstaculos.add(buraco);
+            mapa.adicionarItem(buraco);
+        }
         //adicionando pessoa matheus doente ao parque
         parque.adicionarPessoaAoAmbiente(new Pessoa("Matheus"));
         
@@ -59,9 +72,9 @@ public class Simulacao {
 
     private void executarUmPasso() {
         mapa.removerItem(veiculo);
-        veiculo.executarAcao();
+        veiculo.executarAcao(obstaculos);
         mapa.adicionarItem(veiculo);
-        ambulancia.executarAcao();
+        ambulancia.executarAcao(obstaculos);
 
         if (ambulancia.getLocalizacaoAtual().equals(ambulancia.getLocalizacaoDestino())) {
             ambulancia.setLocalizacaoDestino(hospital.getEstacionamento());
