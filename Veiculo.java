@@ -1,5 +1,5 @@
 import java.util.Stack;
-
+import java.util.Random;
 /**
  * Representa os veiculos da simulacao.
  * @author David J. Barnes and Michael Kolling and Luiz Merschmann
@@ -7,6 +7,8 @@ import java.util.Stack;
 public abstract class Veiculo extends Item {
     private Localizacao localizacaoDestino;
     private Stack<Pessoa> pessoas;
+    private int espera = 15;
+    private boolean noSemafaro = false;
 
 
     //esse construtor vai ser descontinuado, está aqui apenas para tampar buraco
@@ -52,11 +54,32 @@ public abstract class Veiculo extends Item {
         this.localizacaoDestino = localizacaoDestino;
     }
     
-    public void executarAcao(){
-        Localizacao destino = getLocalizacaoDestino();
-        if(destino != null){
-            Localizacao proximaLocalizacao = getLocalizacaoAtual().proximaLocalizacao(localizacaoDestino);
-            setLocalizacaoAtual(proximaLocalizacao);
+    public void executarAcao() {
+        if (!noSemafaro && estaEmMovimento()) {
+            Random rand = new Random();
+            int sorte = rand.nextInt(100);
+
+            if (sorte >78) {
+                noSemafaro = true;
+                System.out.println("semafaro");
+            }
+            else {
+                Localizacao destino = getLocalizacaoDestino();
+                if (destino != null) {
+                    Localizacao proximaLocalizacao = getLocalizacaoAtual().proximaLocalizacao(localizacaoDestino);
+                    setLocalizacaoAtual(proximaLocalizacao);
+                }
+            }
+        }
+        
+        else if (noSemafaro){
+            System.out.println("espera" + espera);
+            espera -= 1;
+            if(espera == 0){
+                espera = 15;
+                noSemafaro = false;
+            }
+
         }
     }
 
