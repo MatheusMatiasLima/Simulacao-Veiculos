@@ -10,5 +10,8 @@ public class Ambulancia extends Veiculo {
         return this.getClass().getName();
     }
 
-
+    @Override
+    public void adicionarPessoa(Pessoa p){
+        super.inserirPessoaStack(p);
+    }
 }

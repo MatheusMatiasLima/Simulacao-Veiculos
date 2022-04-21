@@ -24,9 +24,12 @@ public abstract class Veiculo extends Item {
 
     protected abstract String retornarNomeDaSubclasse ();
 
-    public void adicionarPessoa (Pessoa p) {
+    public abstract void adicionarPessoa (Pessoa p);
+
+    public void inserirPessoaStack(Pessoa p){
         pessoas.add(p);
     }
+
     public Pessoa tirarPessoa () {
         return pessoas.pop();
     }
