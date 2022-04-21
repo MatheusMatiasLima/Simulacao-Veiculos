@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 /*
 * A van é o nosso veiculo principal,
 * é ela que vai levar as pessoas para algum lugar
@@ -6,9 +8,16 @@
 
 public class Van extends Veiculo {
 
+
     public Van(Localizacao localizacao) {
-        super(localizacao,"Imagens/ambulancia.png");
+        super(localizacao,"Imagens/van.png");
         //TODO Auto-generated constructor stub
     }
+
+    @Override
+    protected String retornarNomeDaSubclasse () {
+        return this.getClass().getName();
+    }
     
+
 }
