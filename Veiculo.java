@@ -1,5 +1,3 @@
-import java.awt.Image;
-import javax.swing.ImageIcon;
 
 /**
  * Representa os veiculos da simulacao.
@@ -9,10 +7,10 @@ public class Veiculo extends Item {
     private Localizacao localizacaoDestino;
 
     //esse construtor vai ser descontinuado, está aqui apenas para tampar buraco
-    public Veiculo (Localizacao localizacao) {
-        super(localizacao, "Imagens/veiculo.jpg");
-        localizacaoDestino = null;
-    }
+    //public Veiculo (Localizacao localizacao) {
+    //    super(localizacao, "Imagens/veiculo.jpg");
+    //    localizacaoDestino = null;
+    //}
 
     public Veiculo(Localizacao localizacao, String connectionStringImagem) {
         super(localizacao, connectionStringImagem);
