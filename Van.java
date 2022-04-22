@@ -1,18 +1,21 @@
 import java.util.Stack;
 
-/*
-* A van é o nosso veiculo principal,
-* é ela que vai levar as pessoas para algum lugar
-* @author Matheus Matias Lima: integrante do grupo 17
-*/
+/**Representa as vans da simulacao, herda de Veiculo.
+ *
+ * @author Grupo17
+ */
 
 public class Van extends Veiculo {
     private int limitePeso;
     private int pesoAtual;
 
+
+    /**Cria uma van em dada localizacao.
+     *
+     * @param localizacao localização que a van e instanciada.
+     */
     public Van(Localizacao localizacao) {
         super(localizacao,"Imagens/van.png");
-        //TODO Auto-generated constructor stub
         limitePeso = 1200;
         pesoAtual = 0;
     }
@@ -28,7 +31,10 @@ public class Van extends Veiculo {
             super.inserirPessoaStack(p);
         }
     }
-
+    /**Fornece o nome da subclasse desse objeto.
+     *
+     * @return String que representa o nome da classe do objeto.
+     */
     @Override
     protected String retornarNomeDaSubclasse () {
         return this.getClass().getName();
