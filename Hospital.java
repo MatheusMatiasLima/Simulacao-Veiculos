@@ -53,6 +53,11 @@ public class Hospital extends Item implements Ambiente {
         return pessoasQueIraoSair;
     }
 
+    /**Fornece se existe alguma pessoa curada no hospital precisando de transporte.
+     *
+     * @return true: se alguem se curou e deseja sair do hospital.
+     *         false: se não tem pessoas prontas para sair.
+     */
     public boolean temPessoasQuerendoSair () {
         if (!pessoasQueIraoSair.empty()) {
             return true;
@@ -60,15 +65,18 @@ public class Hospital extends Item implements Ambiente {
         return false;
     }
 
-    
-
+    /**Imprime no terminal quais pessoas estao no hospital.
+     *
+     */
     public void verTodosOsPacientes () {
         System.out.println("****Pessoas que podem sair*****");
         for (Pessoa pi : pessoasQueIraoSair) {
             System.out.println(pi.getNome());
         }
     }
-
+    /**Faz cada uma das pessoas internadas no hospital passar por uma "roleta da vida" para ver o que a consulta descobriu.
+     *
+     */
     public void realizarConsultasEmPacientes () {
         if (pessoasInternadas.size() > 0) {
             // for (PessoaInternada pi : pessoasInternadas) {
@@ -95,7 +103,10 @@ public class Hospital extends Item implements Ambiente {
         return null;
 
     }
-
+    /**Calcula a chance dos diagnosticos de cada pessoa no hospital, com base nas suas características.
+     * A pessoa pode ser curada, pode morrer e pode ficar mais dias internadas.
+     *
+     */
     private void verificarEstadoDaPessoa (PessoaInternada paciente) {
         Random roletaDaVida = new Random();
 

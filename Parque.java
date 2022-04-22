@@ -71,7 +71,8 @@ public class Parque extends Item implements Ambiente {
 
     /**Informa se tem alguma pessoa precisando de socorro no parque.
      *
-     * @return Boolean Verdadeiro caso exista alguma pessoa doente no parque e Falso caso nao.
+     * @return true: caso exista alguma pessoa doente no parque.
+     *         false: caso nao.
      */
     public boolean precisaDeSocorro() {
 
@@ -91,7 +92,8 @@ public class Parque extends Item implements Ambiente {
     }
     /**Informa se o socorro do hospital esta a caminho do parque.
      *
-     * @return Boolean Verdadeiro caso o socorro esteja a caminho e Falso caso nao.
+     * @return true: caso o socorro esteja a caminho.
+     *         false: caso nao.
      */
     public boolean socorroACaminho () {
         return socorroACaminho;

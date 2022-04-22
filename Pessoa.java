@@ -37,14 +37,16 @@ public class Pessoa{
     }
     /**Verifica se a pessoa esta doente.
      *
-     * @return Boolean Verdadeiro se a pessoa estiver doente, Falso se não estiver doente.
+     * @return true: se a pessoa estiver doente.
+     *         false: se não estiver doente.
      */
     public boolean isDoente() {
         return doente;
     }
     /**Verifica se a pessoa e idosa.
      *
-     * @return Boolean Verdadeiro se a pessoa for idosa, Falso se não for.
+     * @return true: se a pessoa for idosa.
+     *         falso se não for.
      */
     public boolean isIdoso() {
         return idoso;

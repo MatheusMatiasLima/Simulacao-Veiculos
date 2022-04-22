@@ -3,7 +3,7 @@ import java.util.Random;
 
 /**
  * Representa uma localização no mapa
- * @author David J. Barnes and Michael Kolling and Luiz Merschmann
+ * @author David J. Barnes and Michael Kolling and Luiz Merschmann and Grupo17
  */
 public class Localizacao {
     private int x;

@@ -49,7 +49,8 @@ public abstract class Veiculo extends Item {
 
     /**Check para ver se o veiculo possui pessoas nele
      *
-     * @return booelan Verdadeira se possuir pessoas, False se nao
+     * @return true: se possuir pessoas.
+     *         false: se nao possuir pessoas
      */
     public boolean temPessoasNoVeiculo () {
         if (pessoas.isEmpty()) {
@@ -98,7 +99,8 @@ public abstract class Veiculo extends Item {
 
     /**Retorna se o veiculo esta se movendo
      *
-     * @return booelean Verdadeiro que representa que o veiculo esta se movimentando e Falso se esta parado
+     * @return  true: que representa que o veiculo esta se movimentando.
+     *          false: se esta parado.
      */
     public boolean estaEmMovimento () {
         if (getLocalizacaoAtual() != getLocalizacaoDestino()) {
