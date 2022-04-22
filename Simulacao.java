@@ -56,10 +56,10 @@ public class Simulacao {
             mapa.adicionarItem(buraco);
         }
  
-        parque.adicionarPessoaAoAmbiente(new Pessoa("Matheus"));
-        parque.adicionarPessoaAoAmbiente(new Pessoa("Jao"));
-        parque.adicionarPessoaAoAmbiente(new Pessoa("Edu"));
-        parque.adicionarPessoaAoAmbiente(new Pessoa("Dudu"));
+        parque.adicionarPessoaAoAmbiente(new Pessoa("Matheus",20,"12345678912",70));
+        parque.adicionarPessoaAoAmbiente(new Pessoa("Jao",20,"12345678912",70));
+        parque.adicionarPessoaAoAmbiente(new Pessoa("Edu",20,"12345678912",70));
+        parque.adicionarPessoaAoAmbiente(new Pessoa("Dudu",20,"12345678912",70));
         
         //veiculo.setLocalizacaoDestino(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)));//Define a posicao destino aleatoriamente
         ambulancia.setLocalizacaoDestino(hospital.getEstacionamento());
@@ -134,8 +134,8 @@ public class Simulacao {
             vanDoPonto.setLocalizacaoDestino(new Localizacao(30, 30));
         }
 
-       paradasDeVan.get(0).adicionarPessoaAoAmbiente(new Pessoa("NomeAleatorio"));
-       paradasDeVan.get(1).adicionarPessoaAoAmbiente(new Pessoa("NomeAleatorio"));
+       paradasDeVan.get(0).adicionarPessoaAoAmbiente(new Pessoa("NomeAleatorio",20,"12345678912",70));
+       paradasDeVan.get(1).adicionarPessoaAoAmbiente(new Pessoa("NomeAleatorio",20,"12345678912",70));
 
 
         janelaSimulacao.executarAcao();
